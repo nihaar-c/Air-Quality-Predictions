@@ -1,9 +1,10 @@
 class CreateAirQualityData < ActiveRecord::Migration[7.1]
   def change
     create_table :air_quality_data do |t|
-      t.datetime :date
       t.integer :aqi
-      t.string :location
+      t.integer :temp
+      t.integer :humidity
+      t.integer :wspd
 
       t.timestamps
     end

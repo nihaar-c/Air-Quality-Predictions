@@ -1,0 +1,21 @@
+<h1>Air Quality Data</h1>
+<table>
+  <thead>
+    <tr>
+      <th>AQI</th>
+      <th>Temperature</th>
+      <th>Humidity</th>
+      <th>Wind Speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @air_quality_data.each do |datum| %>
+      <tr>
+        <td><%= datum.aqi %></td>
+        <td><%= datum.temp %></td>
+        <td><%= datum.humidity %></td>
+        <td><%= datum.wspd %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
