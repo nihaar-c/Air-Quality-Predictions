@@ -1,22 +1,24 @@
 <!-- app/views/air_quality_data/index.html.erb -->
-<h1>Air Quality Data</h1>
-<table>
-  <thead>
-    <tr>
-      <th>AQI</th>
-      <th>Temperature</th>
-      <th>Humidity</th>
-      <th>Wind Speed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @air_quality_data.each do |datum| %>
+<div class="container">
+  <h1>Air Quality Data</h1>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= datum.aqi %></td>
-        <td><%= datum.temp %></td>
-        <td><%= datum.humidity %></td>
-        <td><%= datum.wspd %></td>
+        <th>AQI</th>
+        <th>Temperature</th>
+        <th>Humidity</th>
+        <th>Wind Speed</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @air_quality_data.each do |datum| %>
+        <tr>
+          <td><%= datum.aqi %></td>
+          <td><%= datum.temp %></td>
+          <td><%= datum.humidity %></td>
+          <td><%= datum.wspd %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
