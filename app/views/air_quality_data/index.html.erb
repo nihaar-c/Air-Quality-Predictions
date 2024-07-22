@@ -1,4 +1,3 @@
-<!-- app/views/air_quality_data/index.html.erb -->
 <h1>Air Quality Data</h1>
 <table>
   <thead>
@@ -12,10 +11,10 @@
   <tbody>
     <% @air_quality_data.each do |datum| %>
       <tr>
-        <td><%= datum.aqi %></td>
-        <td><%= datum.temp %></td>
-        <td><%= datum.humidity %></td>
-        <td><%= datum.wspd %></td>
+        <td><%= number_with_precision(datum.aqi, precision: 3) %></td>
+        <td><%= number_with_precision(datum.temp, precision: 2) %></td>
+        <td><%= number_with_precision(datum.humidity, precision: 2) %></td>
+        <td><%= number_with_precision(datum.wspd, precision: 2) %></td>
       </tr>
     <% end %>
   </tbody>

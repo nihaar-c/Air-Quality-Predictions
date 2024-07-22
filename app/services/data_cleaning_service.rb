@@ -20,6 +20,10 @@ class DataCleaningService
       df = handle_missing_values(df)
       df = normalize_data(df)
       
+      df.each_row do |row|
+        puts "Normalized values: AQI: #{row['AQI']}, Temp: #{row['Temperature']}, Humidity: #{row['Humidity']}, Wind Speed: #{row['WindSpeed']}"
+      end
+
       # Store the cleaned data in the database
       store_data(df)
     end
@@ -50,7 +54,6 @@ class DataCleaningService
   
     def store_data(df)
       df.each_row do |row|
-        puts "Normalized values: AQI: #{row['AQI']}, Temp: #{row['Temperature']}, Humidity: #{row['Humidity']}, Wind Speed: #{row['WindSpeed']}"
         AirQualityDatum.create(
             aqi: row['AQI'].to_f,
             temp: row['Temperature'].to_f,
