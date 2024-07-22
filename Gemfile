@@ -10,6 +10,8 @@ gem "sprockets-rails"
 
 gem 'daru', '~> 0.2.1'
 gem 'csv'
+gem 'bootstrap', '~> 5.3.3'
+gem 'dartsass-sprockets'
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
