@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: your_db_username
+  password: your_db_password
+development:
+  <<: *default
+  database: air_quality_forecasting_development
+test:
+  <<: *default
+  database: air_quality_forecasting_test
+production:
+  <<: *default
+  database: air_quality_forecasting_production
+  username: air_quality_forecasting
+  password: <%= ENV['AIR_QUALITY_FORECASTING_DATABASE_PASSWORD'] %>

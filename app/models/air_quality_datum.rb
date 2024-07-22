@@ -1,0 +1,2 @@
+class AirQualityDatum < ApplicationRecord
+end
