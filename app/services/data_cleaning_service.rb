@@ -29,8 +29,9 @@ class DataCleaningService
     def handle_missing_values(df)
       # Example: Fill missing values with the mean of the column
       df.vectors.each do |vector|
-        mean = df[vector].mean
-        df[vector] = df[vector].map { |v| v.nil? ? mean : v }
+        non_nil_values = df[vector].reject(&:nil?).map(&:to_f)
+        mean = non_nil_values.sum / non_nil_values.size
+        df[vector] = df[vector].map { |v| v.nil? ? mean : v.to_f }
       end
       df
     end
@@ -38,20 +39,23 @@ class DataCleaningService
     def normalize_data(df)
       # Example: Normalize data to a 0-1 range
       df.vectors.each do |vector|
-        min = df[vector].min
-        max = df[vector].max
-        df[vector] = df[vector].map { |v| (v - min) / (max - min).to_f }
+        values = df[vector].map(&:to_f)
+        min = values.min
+        max = values.max
+        range = max - min
+        df[vector] = values.map { |v| (v - min) / range }
       end
       df
     end
   
     def store_data(df)
       df.each_row do |row|
+        puts "Normalized values: AQI: #{row['AQI']}, Temp: #{row['Temperature']}, Humidity: #{row['Humidity']}, Wind Speed: #{row['WindSpeed']}"
         AirQualityDatum.create(
-          aqi: row['AQI'],
-          temp: row['Temperature'],
-          humidity: row['Humidity'],
-          wspd: row['WindSpeed']
+            aqi: row['AQI'].to_f,
+            temp: row['Temperature'].to_f,
+            humidity: row['Humidity'].to_f,
+            wspd: row['WindSpeed'].to_f
         )
       end
     end

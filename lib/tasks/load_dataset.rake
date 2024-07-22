@@ -35,7 +35,7 @@ namespace :dataset do
 namespace :dataset do
     desc "Load and clean air quality dataset"
     task load_and_clean: :environment do
-      dataset_path = Rails.root.join('data', 'air_quality', 'your_dataset_file.csv')
+      dataset_path = Rails.root.join('data', 'air_quality', 'air_quality_health_impact_data.csv')
       service = DataCleaningService.new(dataset_path)
       service.clean_and_store_data
       puts "Dataset loaded and cleaned successfully."
