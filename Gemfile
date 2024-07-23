@@ -11,7 +11,11 @@ gem "sprockets-rails"
 gem 'daru', '~> 0.2.1'
 gem 'csv'
 gem 'bootstrap', '~> 5.3.3'
-gem 'dartsass-sprockets'
+gem "sassc-rails"
+
+gem "rumale"
+
+gem "numo-narray"
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
