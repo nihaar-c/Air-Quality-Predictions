@@ -6,6 +6,7 @@ class ModelEvalService
 
   def evaluate_model
     predictions = @model.predict(@data[:x_test])
+    puts "eval 1"
 
     mse = Rumale::EvaluationMeasure::MeanSquaredError.new
     mae = Rumale::EvaluationMeasure::MeanAbsoluteError.new
@@ -20,11 +21,9 @@ class ModelEvalService
 
     { predictions: predictions, mse: error_mse, mae: error_mae, r2: error_r2, mape: error_mape }
 
-    TRAINING_LOGGER.info "------------- NEW TRAINING -------------"
-    TRAINING_LOGGER.info "Linear Regression Model Evaluation Metrics:"
     TRAINING_LOGGER.info "Mean Squared Error: #{error_mse}"
     TRAINING_LOGGER.info "Mean Absolute Error: #{error_mse}"
-    TRAINING_LOGGER.info "R-squared: #{error_r2}"
+    TRAINING_LOGGER.info "R-score: #{error_r2}"
     TRAINING_LOGGER.info "Mean Absolute Percentage Error: #{error_mape}"
 
   end

@@ -13,6 +13,7 @@ gem 'csv'
 gem 'bootstrap', '~> 5.3.3'
 gem "sassc-rails"
 
+gem "xgboost"
 gem "rumale"
 
 gem "numo-narray"

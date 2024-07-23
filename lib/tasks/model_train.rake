@@ -1,39 +1,60 @@
 require 'rumale'
 
-namespace :model_linear_regression do
-  desc "Train and evaluate model"
-  task train: :environment do
+namespace :model do
+  task :train, [:model_type, :model_filename] => :environment do |t, args|
     # Load the data
     data_loader_service = DataLoadService.new
     df = data_loader_service.load_data
-
-    # # Convert the data to arrays of floats
-    # features = df.map_rows do |row|
-    #   [row[:temp].to_f, row[:humidity].to_f, row[:wspd].to_f]
-    # end
-    # target = df[:aqi].to_a.map(&:to_f)
-
-    # x = Numo::DFloat[*features]
-    # y = Numo::DFloat[*target]
 
     # Split the data
     data_splitter_service = DataSplitService.new
     split_data = data_splitter_service.split_data(df)
 
-    # Train the model
-    model_training_service = LinearRegressionTrain.new(split_data)
-    model = model_training_service.train_model
-    
-    # model = Rumale::LinearModel::LinearRegression.new
-    # model.fit(x, y)
+    # Train the selected model
+    model_type = args[:model_type]
+    model_training_service = case model_type
+                             when 'linear_regression'
+                               LinearRegressionTrain.new(split_data)
+                             when 'svr'
+                               SvrTrain.new(split_data)
+                             when 'decision_tree'
+                               DecisionTreeTrain.new(split_data)
+                             when 'random_forest'
+                               RandomForestTrain.new(split_data)
+                             when 'gradient_boost'
+                               GradientBoostTrain.new(split_data)
+                             when 'xg_boost'
+                               XGBoostTrain.new(split_data)
+                             when 'ada_boost'
+                               AdaptiveBoostTrain.new(split_data)
+                             when 'knn'
+                               KnnTrain.new(split_data)
+                             when 'elastic_net'
+                               ElasticNetTrain.new(split_data)
+                             when 'mlp'
+                               MlpNetTrain.new(split_data)
+                             when 'ridge'
+                               RidgeRegressionTrain.new(split_data)
+                             when 'lasso'
+                               LassoRegressionTrain.new(split_data)
+                             when 'meta'
+                               MetaModelTrain.new(split_data)
+                             else
+                               raise "Unknown model type: #{model_type}"
+                             end
 
+    model = model_training_service.train_model
+
+    TRAINING_LOGGER.info "------------- NEW TRAINING -------------"
+    TRAINING_LOGGER.info "#{model_type} Model Evaluation Metrics:"
     # Evaluate the model
     model_evaluation_service = ModelEvalService.new(model, split_data)
-    evaluation = model_evaluation_service.evaluate_model
+    model_evaluation_service.evaluate_model
 
     puts "Model training and eval complete. Saving now. Check training log."
     # Save the model
-    model_saving_service = ModelSaveService.new(model)
-    model_saving_service.save_model
+    model_filename = args[:model_filename] || "#{model_type}_model.dat"
+    save_model_service = ModelSaveService.new(model, model_filename)
+    save_model_service.save_model
   end
 end

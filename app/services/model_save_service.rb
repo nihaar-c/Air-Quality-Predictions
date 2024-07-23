@@ -1,11 +1,13 @@
-require 'rumale'
-
 class ModelSaveService
-  def initialize(model)
+
+  def initialize(model, filename)
     @model = model
+    @filename = filename
   end
 
   def save_model
-    File.open('trained_models/linear_model.dat', 'wb') { |f| f.write(Marshal.dump(@model)) }
+    File.open("trained_models/#{@filename}", 'wb') do |f|
+      f.write(Marshal.dump(@model))
+    end
   end
 end

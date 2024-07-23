@@ -351,6 +351,9 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    xgboost (0.2.1)
+      ffi
+      rake
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.16)
@@ -382,6 +385,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
+  xgboost
 
 RUBY VERSION
    ruby 3.2.2p53
