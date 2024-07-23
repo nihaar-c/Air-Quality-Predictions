@@ -12,6 +12,7 @@ gem 'daru', '~> 0.2.1'
 gem 'csv'
 gem 'bootstrap', '~> 5.3.3'
 gem "sassc-rails"
+gem 'bootstrap-icons-helper'
 
 gem "rumale"
 

@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Air Quality</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+         <li class="nav-item">
+          <%= link_to 'Make a Prediction', predict_path, class: "nav-link #{'active' if current_page?(predict_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'View Data', air_quality_data_path, class: "nav-link #{'active' if current_page?(air_quality_data_path)}" %>
+        </li>
+      </ul>
+      <div>
+        <a 
+          class="btn btn-sm btn-outline-secondary" 
+          href="https://github.com/natewong1313/air-quality-project" 
+          target="_blank"
+          style="display: flex;align-items: center;justify-content: center;"
+        >
+          View Source&nbsp;
+          <%= bootstrap_icon "box-arrow-up-right", width: 14, height: 14 %>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
