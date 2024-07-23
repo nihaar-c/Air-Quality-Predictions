@@ -1,0 +1,46 @@
+---
+RecordID_normalized:
+  :min: 1.0
+  :max: 5811.0
+AQI_normalized:
+  :min: 0.005817377683070557
+  :max: 499.8588366430653
+PM10_normalized:
+  :min: 0.01584807968904034
+  :max: 299.90196157262767
+PM2_5_normalized:
+  :min: 0.03154891561134576
+  :max: 199.9849653666353
+NO2_normalized:
+  :min: 0.009624778862349359
+  :max: 199.98019540184632
+SO2_normalized:
+  :min: 0.011023180182245795
+  :max: 99.96956093547604
+O3_normalized:
+  :min: 0.0016610027213981304
+  :max: 299.9368115437786
+Temperature_normalized:
+  :min: -9.99099805080186
+  :max: 39.9634342598158
+Humidity_normalized:
+  :min: 10.001506263214127
+  :max: 99.99749326311841
+WindSpeed_normalized:
+  :min: 0.002094215962871182
+  :max: 19.999139087375404
+RespiratoryCases_normalized:
+  :min: 1.0
+  :max: 23.0
+CardiovascularCases_normalized:
+  :min: 0.0
+  :max: 14.0
+HospitalAdmissions_normalized:
+  :min: 0.0
+  :max: 12.0
+HealthImpactScore_normalized:
+  :min: 22.44848790137248
+  :max: 100.0
+HealthImpactClass_normalized:
+  :min: 0.0
+  :max: 4.0

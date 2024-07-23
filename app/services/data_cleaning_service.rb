@@ -18,7 +18,7 @@ class DataCleaningService
   
       # Clean and preprocess the data
       df = handle_missing_values(df)
-      df = normalize_data(df)
+      df, normalized_min_max = normalize_data(df)
 
       df.each_row do |row|
         puts "Normalized values: AQI: #{row['AQI']}, Temp: #{row['Temperature']}, Humidity: #{row['Humidity']}, Wind Speed: #{row['WindSpeed']}"
@@ -26,6 +26,8 @@ class DataCleaningService
 
       # Store the cleaned data in the database
       store_data(df)
+
+      save_normalization_params(normalized_min_max)
     end
   
     private
@@ -41,26 +43,40 @@ class DataCleaningService
     end
   
     def normalize_data(df)
-      # Example: Normalize data to a 0-1 range
-      df.vectors.each do |vector|
-        values = df[vector].map(&:to_f)
-        min = values.min
-        max = values.max
-        range = max - min
-        df[vector] = values.map { |v| (v - min) / range }
-      end
-      df
+        normalized_min_max = {}
+    
+        df.vectors.each do |vector|
+          values = df[vector].map(&:to_f)
+          min = values.min
+          max = values.max
+          range = max - min
+    
+          # Create new column for normalized values
+          normalized_column = "#{vector}_normalized"
+          df[normalized_column] = values.map { |v| (v - min) / range }
+    
+          # Store min and max values for later use
+          normalized_min_max[normalized_column] = { min: min, max: max }
+        end
+    
+        return df, normalized_min_max
     end
   
     def store_data(df)
       df.each_row do |row|
         AirQualityDatum.create(
-          aqi: row['AQI'],
-          temp: row['Temperature'],
-          humidity: row['Humidity'],
-          wspd: row['WindSpeed']
+          aqi: row['AQI_normalized'],
+          temp: row['Temperature_normalized'],
+          humidity: row['Humidity_normalized'],
+          wspd: row['WindSpeed_normalized']
         )
       end
+    end
+
+    def save_normalization_params(normalized_min_max)
+      File.open("normalized_min_max.yml", "w") {
+        |file| file.write(normalized_min_max.to_yaml)
+      }
     end
   end
   
