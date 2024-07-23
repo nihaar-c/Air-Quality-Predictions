@@ -1,2 +1,45 @@
 <div class="container">
+    <div class="row mb-2 mt-4">
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <form class="row g-2 px-3 pb-3">
+                    <div class="col-md-4">
+                        <label for="inputTemp" class="form-label">Temperature</label>
+                        <input type="number" class="form-control" id="inputTemp" placeholder="0">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputHumidity" class="form-label">Humidity</label>
+                        <input type="number" class="form-control" id="inputHumidity" placeholder="0">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputWindSpeed" class="form-label">Wind Speed</label>
+                        <input type="number" class="form-control" id="inputWindSpeed" placeholder="0">
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary" style="margin-right: 2px;">Create a prediction</button>
+                        <button type="button" onclick="onFillClick()" class="btn btn-outline-secondary">Fill sample data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="p-3">
+                Your prediction results will appear here
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+function onFillClick() {
+    fetch('/random_air_quality_data')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('inputTemp').value = data.temp;
+            document.getElementById('inputHumidity').value = data.humidity;
+            document.getElementById('inputWindSpeed').value = data.wspd;
+        })
+        .catch(error => console.error('Error fetching random air quality data:', error));
+}
+</script>
