@@ -6,7 +6,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-         <li class="nav-item">
+        <li class="nav-item">
+          <%= link_to 'Demo', demo_path, class: "nav-link #{'active' if current_page?(demo_path)}" %>
+        </li>
+        <li class="nav-item">
           <%= link_to 'Make a Prediction', predict_path, class: "nav-link #{'active' if current_page?(predict_path)}" %>
         </li>
         <li class="nav-item">

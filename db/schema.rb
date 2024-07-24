@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_23_233303) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_24_171427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_23_233303) do
     t.float "temp"
     t.float "humidity"
     t.float "wspd"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "state"
+    t.integer "population_estimate"
+    t.integer "population_census"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_url"
   end
 
 end
