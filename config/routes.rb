@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'air_quality_data/index'
   get 'air_quality_data', to: 'air_quality_data#index'
   get 'predict', to: 'predict#index'
+  post '/predict', to: 'predict#create'
   get 'random_air_quality_data', to: 'air_quality_data#random'
   get 'demo', to: 'demo#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
