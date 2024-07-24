@@ -11,9 +11,12 @@ namespace :model do
     #data_load_service = DataLoadService.new
     #prediction_data = data_load_service.load_data
 
-    prediction_data = Numo::DFloat[[1.76, 0.16, 0.5]]
+    input_data = { temp: 96, humidity: 25, wspd: 10}
+    normal = NormalizeInputs.new
+    normalized_inputs = normal.normalize(temp: input_data[:temp], humidity: input_data[:humidity], wspd: input_data[:wspd])
     puts "3"
     #Predict
+    prediction_data = Numo::DFloat[normalized_inputs.values].reshape(1, normalized_inputs.values.size)
     predictions = PredictionService.new(model, prediction_data).make_predictions
 
     normalized_aqi = predictions[0]
@@ -23,7 +26,7 @@ namespace :model do
 
     #Log
     PREDICTION_LOGGER.info("Predictions: #{predictions.inspect}")
-    PREDICTION_LOGGER.info("Predictions: #{(predictions[0]*500).inspect}")
+    PREDICTION_LOGGER.info("Predictions: #{(predictions[-1]*500).inspect}")
 
   end
 end

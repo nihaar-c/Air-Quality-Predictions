@@ -21,6 +21,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_171427) do
     t.float "temp"
     t.float "humidity"
     t.float "wspd"
+    t.float "temp_normalized"
+    t.float "humidity_normalized"
+    t.float "wspd_normalized"
   end
 
   create_table "cities", force: :cascade do |t|
