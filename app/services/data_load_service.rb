@@ -1,14 +1,17 @@
 require 'daru'
 
 class DataLoadService
-  def load_data(filename = nil)
-    if filename
-      data = AirQualityDatum.all
-      data_array = data.map { |datum| [datum.aqi, datum.temp, datum.humidity, datum.wspd] }
-      Daru::DataFrame.rows(data_array, order: [:aqi, :temp, :humidity, :wspd])
-    else
-      hardcoded_data
-    end
+  def load_data
+    # if filename
+    data = AirQualityDatum.all
+    data_array = data.map { |datum| [datum.aqi, datum.temp, datum.humidity, datum.wspd] }
+    # data_array.each do |row|
+    #   puts "Normalized values: AQI: #{row[0]}, Temp: #{row[1]}, Humidity: #{row[2]}, Wind Speed: #{row[3]}"
+    # end
+    Daru::DataFrame.rows(data_array, order: [:aqi, :temp, :humidity, :wspd])
+    # else
+    #   hardcoded_data
+    # end
   end
 
   def hardcoded_data

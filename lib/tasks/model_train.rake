@@ -39,6 +39,8 @@ namespace :model do
                                LassoRegressionTrain.new(split_data)
                              when 'meta'
                                MetaModelTrain.new(split_data)
+                             when 'temp_forest'
+                               TempRandomForest.new(split_data)
                              else
                                raise "Unknown model type: #{model_type}"
                              end
