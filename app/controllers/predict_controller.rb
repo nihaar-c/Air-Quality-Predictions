@@ -6,8 +6,8 @@ class PredictController < ApplicationController
     data = JSON.parse(request.body.read)
 
     temp = data['temp']
+    humidity = data['humidity']
     speed = data['speed']
-    temp = data['temp']
 
 
     render json: { aqi: 100 }
