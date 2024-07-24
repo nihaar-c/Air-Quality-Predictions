@@ -19,8 +19,8 @@
                         <input type="number" class="form-control" id="inputWindSpeed" placeholder="0">
                     </div>
                     <div class="col-md-12 mt-3">
-                        <button type="submit" id="predictionBtn" class="btn btn-primary" style="margin-right: 2px;"
-                            >Create a prediction</button>
+                        <button type="submit" id="predictionBtn" class="btn btn-primary"
+                            style="margin-right: 2px;">Create a prediction</button>
                         <button type="button" onclick="onFillClick()" class="btn btn-outline-secondary">Fill sample
                             data</button>
                     </div>
@@ -28,7 +28,8 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="row g-0 bg-body rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" id="predictionContainer">
+            <div class="row g-0 bg-body rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+                id="predictionContainer">
                 <div class="p-3">
                     Your prediction results will appear here.
                 </div>
@@ -48,11 +49,11 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 'temp': document.getElementById('inputTemp').value,
                 'humidity': document.getElementById('inputHumidity').value,
                 'speed': document.getElementById('inputWindSpeed').value,
-             })
+            })
         });
         const { aqi } = await response.json();
 

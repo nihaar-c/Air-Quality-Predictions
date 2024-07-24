@@ -19,7 +19,8 @@
         filter: invert(100%);
     }
 
-    .carousel-control-prev-icon, .carousel-control-next-icon{
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
         height: 1.5rem;
         width: 1.5rem;
     }
@@ -29,11 +30,12 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+
     .card-img-top {
-    width: 100%;
-    height: 10vw;
-    object-fit: cover;
-}
+        width: 100%;
+        height: 10vw;
+        object-fit: cover;
+    }
 </style>
 
 <div class="container">
@@ -47,18 +49,24 @@
                             <% slice.each do |city| %>
                                 <div class="col-md-3">
                                     <div class="card">
-                                        <img src="<%= city.image_url || 'https://placehold.co/100' %>" class="card-img-top" alt="<%= city.name %>">
+                                        <img src="<%= city.image_url || 'https://placehold.co/100' %>"
+                                            class="card-img-top" alt="<%= city.name %>">
                                         <div class="card-body">
-                                            <h5 class="card-title"><%= city.name %></h5>
-                                            <p class="card-text">Population: <%= number_with_delimiter(city.population_estimate, :delimiter => ',') %></p>
-                                            <button class="btn btn-outline-primary">Select</button>
+                                            <h5 class="card-title">
+                                                <%= city.name %>
+                                            </h5>
+                                            <p class="card-text">Population: <%=
+                                                    number_with_delimiter(city.population_estimate, :delimiter=> ',') %>
+                                            </p>
+                                            <button class="btn btn-outline-primary"
+                                                onclick="selectCity('<%= city.name %>', '<%= city.state %>')">Select</button>
                                         </div>
                                     </div>
                                 </div>
-                            <% end %>
+                                <% end %>
                         </div>
                     </div>
-                <% end %>
+                    <% end %>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#citiesCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -69,5 +77,39 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+        <div id="resultContainer">
+            
+        </div>
     </div>
 </div>
+<script>
+    async function selectCity(city, state) {
+        document.getElementById('resultContainer').innerHTML = `<div class="px-2 pt-4" style="display: flex; align-items: center;">
+            <div class="spinner-border spinner-border-md" role="status">
+              </div>
+              <span style="margin-left: 10px">Loading result</span>
+        </div>`
+        const response = await fetch('/demo', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'city': city,
+                'state': state
+            })
+        });
+        const { predicted, actual } = await response.json();
+        document.getElementById('resultContainer').innerHTML = `<div class="px-2">
+                <p class="pb-2 mt-3 mb-0 border-bottom">Prediction result for New York City</p>
+            <div style="display:flex; align-items: center;justify-content: space-between;width: 160px;" class="mt-2">
+                <h5>Predicted: </h5><h5>${predicted}</h5>
+            </div>
+            <div style="display:flex; align-items: center;justify-content: space-between;width: 160px;" class="mt-1">
+                <h5>Actual: </h5><h5>${actual}</h5>
+            </div>
+            </div>`
+
+    }
+</script>
